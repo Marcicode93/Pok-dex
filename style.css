@@ -9,21 +9,41 @@ body {
   align-items: center;
   justify-content: space-between;
   background-color: rgb(57, 167, 97);
+  padding-bottom: 12px;
+  padding-top: 12px;
 }
 
-.navbar a{
-    cursor: pointer;
-    color: white;
+.navbar a {
+  cursor: pointer;
+  color: white;
 }
 
-main{
+main {
+  display: flex;
+  flex: 1;
+  height: 100vh;
+}
 
-    flex: 1;
-    height: 100vh;
+#main-content {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-left: 60px;
+  padding-right: 60px;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-img-top {
+  cursor: pointer;
+  width: 160px;
+  height: 160px;
 }
 
 footer {
   background-color: rgb(57, 167, 97);
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 footer a {
