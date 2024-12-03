@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: "Roboto";
+  font-weight: 800;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(57, 167, 97);
+}
+
+.navbar a{
+    cursor: pointer;
+    color: white;
+}
+
+main{
+
+    flex: 1;
+    height: 100vh;
+}
+
+footer {
+  background-color: rgb(57, 167, 97);
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+}
