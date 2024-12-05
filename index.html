@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="./fonts/fonts.css">
+    <link rel="stylesheet" href="./fonts/fonts.css" />
   </head>
   <body onload="fetchItem()">
     <header>
@@ -40,10 +40,19 @@
     <footer>
       <a href="#">Impressum</a>
       <a href="#">Datenschutz</a>
+      <a target="_blank" href="https://icons8.com/icon/39814/circled-right">Pfeil rechts</a> Icon von <a target="_blank" href="https://icons8.com">Icons8</a>
+      <a target="_blank" href="https://icons8.com/icon/39815/go-back">Links eingekreist</a> Icon von <a target="_blank" href="https://icons8.com">Icons8</a>
     </footer>
 
-    <div class="overlay"></div>
+    <div
+      class="overlay-wrapper display-none"
+      id="overlay-wrapper"
+      onclick="toggleOverlay(event)"
+    >
+      <div class="overlay-content" id="overlay-content"></div>
+    </div>
 
+    <script src="template.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
