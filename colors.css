@@ -1,0 +1,34 @@
+.grass{
+
+ background-color: rgb(25, 186, 25);   
+}
+
+.fire {
+    background-color: rgb(250, 152, 59);
+  }
+  
+  .water {
+    background-color: rgb(94, 150, 255);
+  }
+  
+  .electric {
+    background-color: rgb(255, 204, 51);
+  }
+
+  .bug{
+    background-color: rgb(183, 94, 251);
+  }
+  .poison{
+    background-color: rgb(243, 35, 98);
+  }
+
+  .normal{
+    background-color: blanchedalmond;
+  }
+  .flying{
+    background-color: blanchedalmond;
+  }
+
+  .ground{
+    background-color: rgb(121, 72, 34);
+  }

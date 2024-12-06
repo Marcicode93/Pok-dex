@@ -9,6 +9,8 @@
       rel="stylesheet"
       href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="colors.css">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./fonts/fonts.css" />
   </head>
   <body onload="fetchItem()">
@@ -34,14 +36,26 @@
     <main>
       <div id="main-content">
         <div id="card-wrapper"></div>
+
       </div>
+      <div class="load">
+        <button class="load-more-btn btn btn-outline-success" id="load-more-btn" onclick="fetchMorePokemon()">
+          Load More
+        </button>
+      </div>
+
     </main>
 
     <footer>
       <a href="#">Impressum</a>
       <a href="#">Datenschutz</a>
-      <a target="_blank" href="https://icons8.com/icon/39814/circled-right">Pfeil rechts</a> Icon von <a target="_blank" href="https://icons8.com">Icons8</a>
-      <a target="_blank" href="https://icons8.com/icon/39815/go-back">Links eingekreist</a> Icon von <a target="_blank" href="https://icons8.com">Icons8</a>
+      <a href="https://icons8.com" target="_blank">Icons von Icons8</a>
+      <!-- <a target="_blank" href="https://icons8.com/icon/39814/circled-right"
+        >Pfeil rechts</a
+      >Icon von <a target="_blank" href="https://icons8.com">Icons8</a>
+      <a target="_blank" href="https://icons8.com/icon/39815/go-back"
+        >Links eingekreist</a
+      >Icon von <a target="_blank" href="https://icons8.com">Icons8</a> -->
     </footer>
 
     <div

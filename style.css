@@ -16,17 +16,30 @@ body {
 .navbar a {
   cursor: pointer;
   color: white;
+  padding-left: 60px;
+}
+
+.navbar a:hover {
+  text-decoration: none;
+  color: white;
+  filter: drop-shadow(0px 0px 2px white);
 }
 
 main {
   display: flex;
   flex: 1;
+  flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .arrow-btn {
   cursor: pointer;
+  margin-top: 36px;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 #main-content {
@@ -37,27 +50,63 @@ main {
   padding-right: 60px;
   justify-content: center;
   text-align: center;
+  overflow-y: scroll;
+}
+
+.load {
+  display: flex;
+  justify-content: center;
+}
+
+.load-more-btn {
+  width: 120px;
+  margin-top: 24px;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: auto;
+  max-height: 200px;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  transition: all 400ms ease-in-out;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-img-top {
   cursor: pointer;
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: auto;
+}
+
+#main-page-img {
+  height: 80px !important;
+  width: 80px !important;
+}
+
+#img-card {
+  height: 120px !important;
+  width: 120px !important;
 }
 
 ul.list-group {
   width: 60%; /* Make the stats fill the width of the card */
   padding: 0; /* Remove default padding */
   margin: 0; /* Remove margin */
+  list-style: none;
 }
 .display-none {
-  display: none;
+  display: none !important;
 }
 
-.df{
+.df {
   display: flex;
 }
-
 
 .overlay-wrapper {
   background-color: rgba(49, 49, 49, 0.6);
@@ -70,15 +119,29 @@ ul.list-group {
 
 .overlay-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   z-index: 1000;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
+
+}
+
+.upper-card {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.overlay-card img{
+  width: 150px; /* Bild passt sich der Breite der Karte an */
+  height: 150px; /* Verhindert, dass das Bild die Karte vertikal sprengt */
+  object-fit: contain;
 }
 
 .overlay-card {
@@ -87,12 +150,13 @@ ul.list-group {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 60%;
-  height: 90%;
+  width: 300px;
+  flex-shrink: 0;
+  max-height: 700px;
   z-index: 10000;
-  border-radius: 20px;
-  padding: 20px;
-  overflow-y: auto;
+  border-radius: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -101,6 +165,16 @@ ul.list-group {
   padding-right: 12px;
   padding-bottom: 18px;
 }
+
+.tab-content {
+  margin-top: 12px;
+  max-height: 150px;
+}
+
+.types {
+  padding-bottom: 12px;
+}
+
 .avatar-name {
   cursor: pointer;
 }
