@@ -27,7 +27,7 @@
   }
   
   .flying {
-    background: linear-gradient(135deg, blanchedalmond, rgba(240, 220, 180, 0.7));
+    background: linear-gradient(135deg, rgba(255,235205,0.2), rgba(240, 220, 180, 0.7));
   }
   
   .ground {
@@ -63,6 +63,6 @@
   }
   
   .fairy {
-    background: linear-gradient(135deg, rgba(75, 207, 111,0.2), rgba(40, 160, 80, 0.7));
+    background: linear-gradient(135deg, rgba(75, 207, 165, 0.2), rgba(40, 160, 140, 0.7));
   }
   

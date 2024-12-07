@@ -2,13 +2,14 @@ let pokemonArr = [];
 let currentIndex = 0;
 let offset = 0;
 
+function reloadPage() {
+  location.reload();
+}
+
 async function fetchItem(limit = 30) {
+  let loadButton = document.getElementById("load-more-btn");
   document.getElementById("loading-spinner").style.display = "block";
 
-  if (offset >= 151) {
-    console.log("Alle Pokemon geladen");
-    return;
-  }
   let response = await fetch(
     `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
   );
@@ -20,7 +21,7 @@ async function fetchItem(limit = 30) {
     let pokemonData = await pokemonResponse.json();
 
     if (!pokemonArr.find((p) => p.name === pokemonData.name)) {
-      pokemonArr.push(pokemonData); // Nur hinzufügen, wenn es noch nicht existiert
+      pokemonArr.push(pokemonData);
       renderCharacter(pokemonData, pokemonArr.length - 1);
     }
   }
@@ -28,53 +29,51 @@ async function fetchItem(limit = 30) {
   offset += limit;
 
   document.getElementById("loading-spinner").style.display = "none";
+  loadButton.disabled = false;
 
   if (offset >= 151) {
-    let loadButton = document.getElementById("load-more-btn");
     loadButton.classList.add("display-none");
     loadButton.classList.remove("load");
   }
 }
 
 function fetchMorePokemon() {
+  let loadButton = document.getElementById("load-more-btn");
+  loadButton.disabled = true;
   fetchItem();
 }
 
 function renderCharacter(pokemon, i) {
   let content = document.getElementById("main-content");
-  let name = pokemon.name;
+  let name = capitalizeFirstLetter(pokemon.name);
   let imageUrl = pokemon.sprites.other["official-artwork"].front_default;
 
-  let typesHTML = "";
-  for (let j = 0; j < pokemon.types.length; j++) {
-    typesHTML += pokemon.types[j].type.name;
-    if (j < pokemon.types.length - 1) {
-      typesHTML += ", ";
-    }
-  }
+  let typesHTML = getTypeIconsHTML(pokemon);
+
   let mainTypeClass = pokemon.types[0].type.name;
 
-  content.innerHTML += /*html*/ `
-    <div class="card card-hover ${mainTypeClass}" onclick="toggleOverlay(event,${i})">
-      <img class="card-img-top" id="main-page-img" src="${imageUrl}" alt="image-Pokémon">
-      <div class="card-body">
-        <h5 class="card-title avatar-name">${name}</h5>
-        <div class="types">${typesHTML}</div>
-        </div>
-    </div>
-        `;
+  content.innerHTML += getMainTemplate(
+    mainTypeClass,
+    imageUrl,
+    name,
+    typesHTML,
+    i
+  );
 }
 
 function renderPokemoninOverlay(pokemon) {
   let overlayContent = document.getElementById("overlay-content");
-  let name = pokemon.name;
+  let name = capitalizeFirstLetter(pokemon.name);
   let height = pokemon.height * 10;
   let heightDisplay =
     height >= 100
       ? (height / 100).toFixed(2).toString().replace(".", ",") + " m"
       : height + " cm";
   let weight = pokemon.weight;
-  let weightDisplay = weight >= 100 ? weight / 10 + " kg" : weight + " g";
+  let weightDisplay =
+    weight >= 100
+      ? (weight / 10).toString().replace(".", ",") + " kg"
+      : weight + " g";
 
   let abilitiesHTML = "";
   pokemon.abilities.forEach((ability) => {
@@ -109,58 +108,57 @@ function renderPokemoninOverlay(pokemon) {
     `;
   }
 
-  let typesHTML = "";
-  for (let j = 0; j < pokemon.types.length; j++) {
-    typesHTML += pokemon.types[j].type.name;
-    if (j < pokemon.types.length - 1) {
-      typesHTML += ", ";
-    }
-  }
+  let typesHTML = getTypeIconsHTML(pokemon);
 
   let mainTypeClass = pokemon.types[0].type.name;
 
-  overlayContent.innerHTML = /*html*/ `
-  <div class="card overlay-card">
-      <div class="upper-card ${mainTypeClass}">
-        <img class="card-img-top" id="img-card" src="${pokemon.sprites.other["official-artwork"].front_default}" alt="Card image cap">
-         <div class="card-body">
-          <h3 class="card-title">${name}</h3>
-          <p class="card-text">Types: ${typesHTML}</p>
-        </div>
-      </div>
+  overlayContent.innerHTML = getOverlayTemplate(
+    pokemon,
+    name,
+    heightDisplay,
+    weightDisplay,
+    mainTypeClass,
+    typesHTML,
+    abilitiesHTML,
+    statsHTML
+  );
+}
 
-      <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
-          <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Stats</a>
-          <a class="nav-item nav-link" id="nav-moves-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Moves</a>
-        </div>
-      </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <p>Height: ${heightDisplay}</p>
-            <p>Weight: ${weightDisplay}</p>
-          <div>
-            <p>Abilities</p>
-            <ul>
-              ${abilitiesHTML}
-            </ul>
-          </div>
-          </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-          <ul class="list-group list-group-flush">
-        ${statsHTML}
-          </ul>
-          </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-        </div>
+function filterName() {
+  let search = document.getElementById("search").value.trim();
+  if (search.length < 3) {
+    alert("Bitte mindestens 3 Buchstaben eingeben!");
+    return;
+  }
 
-  <div class="card-body">
-    <img class="arrow-btn" src="./img/icons8-links-eingekreist-50.png" alt="Pfeil links" onclick="changeDirection(-1)">
-    <img class="arrow-btn" src="./img/icons8-pfeil-rechts-50.png" alt="Pfeil rechts" onclick="changeDirection(+1)">
-  </div>
-</div>
-  `;
+  let filteredPokemons = pokemonArr.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(search.toLowerCase())
+  );
+  let content = document.getElementById("main-content");
+  content.innerHTML = "";
+  if (filteredPokemons.length === 0) {
+    content.innerHTML = `<h1 class="no-pokemon">Kein Pokémon gefunden!</h1>`;
+}
+
+  renderFilteredPokemons(filteredPokemons);
+}
+
+function renderFilteredPokemons(filteredPokemons) {
+  let content = document.getElementById("main-content");
+  content.innerHTML = "";
+
+  filteredPokemons.forEach((pokemon) => {
+    let imageUrl = pokemon.sprites.other["official-artwork"].front_default;
+    let typesHTML = getTypeIconsHTML(pokemon);
+    let mainTypeClass = pokemon.types[0].type.name;
+
+    content.innerHTML += getMainTemplate(
+      mainTypeClass,
+      imageUrl,
+      pokemon.name,
+      typesHTML
+    );
+  });
 }
 
 function toggleOverlay(event, i) {

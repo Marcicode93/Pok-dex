@@ -25,10 +25,14 @@ body {
   filter: drop-shadow(0px 0px 2px white);
 }
 
-.form-inline{
+.form-inline {
   display: flex;
   gap: 12px;
   padding-right: 60px;
+}
+
+.no-pokemon{
+  color: black !important;
 }
 
 main {
@@ -37,8 +41,14 @@ main {
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.arrow-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 120px;
 }
 
 .arrow-btn {
@@ -46,12 +56,20 @@ main {
   margin-top: 36px;
   width: 50px !important;
   height: 50px !important;
+  transition: transform 0.1s ease-in-out, filter 0.1s ease-in-out;
+}
+
+.arrow-btn:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
 }
 
 #main-content {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  padding-top: 24px;
+  padding-bottom: 24px;
   padding-left: 60px;
   padding-right: 60px;
   justify-content: center;
@@ -82,12 +100,22 @@ main {
   transform: scale(1.05);
   transition: all 400ms ease-in-out;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.main-screen-card {
+  color: white !important;
+  filter: drop-shadow(0px 0px 2px black);
 }
 
 .card-img-top {
-  cursor: pointer;
   width: 120px;
   height: auto;
+}
+.card-hover:hover img {
+  transform: scale(1.5);
+  z-index: 1;
+  transition: transform 0.2s ease;
 }
 
 #main-page-img {
@@ -98,6 +126,14 @@ main {
 #img-card {
   height: 120px !important;
   width: 120px !important;
+}
+
+#img-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  z-index: 1;
+  animation: wiggle 1.6s ease-in-out; /* Wackel-Animation */
+
 }
 
 ul.list-group {
@@ -135,7 +171,6 @@ ul.list-group {
   left: 0;
   right: 0;
   overflow: hidden;
-
 }
 
 .upper-card {
@@ -143,9 +178,42 @@ ul.list-group {
   justify-content: center;
   border-radius: 10px;
   color: white;
+  width: 300px;
+  filter: drop-shadow(0px 0px 2px black);
 }
 
-.overlay-card img{
+.type-icons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.type-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.type-name {
+  font-size: 14px;
+  color: #333;
+}
+
+#close-btn {
+  border: none;
+  background-color: white;
+  margin-right: 260px;
+  margin-bottom: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  cursor: pointer;
+  width: 24px;
+}
+
+#close-btn:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.overlay-card img {
   width: 150px; /* Bild passt sich der Breite der Karte an */
   height: 150px; /* Verhindert, dass das Bild die Karte vertikal sprengt */
   object-fit: contain;
@@ -178,6 +246,10 @@ ul.list-group {
   max-height: 150px;
 }
 
+#nav-home {
+  width: 200px;
+}
+
 .types {
   padding-bottom: 12px;
 }
@@ -188,8 +260,8 @@ ul.list-group {
 
 footer {
   background-color: rgb(57, 167, 97);
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 footer a {
@@ -203,6 +275,26 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+  transform: scale(1.1);
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+}
+.links1 {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 16px;
+}
+.pokemon-api {
+  width: 120px;
+}
+
+.links3 {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 16px;
 }
 
 #loading-spinner {
@@ -265,4 +357,20 @@ footer a:hover {
   }
 }
 
-
+@keyframes wiggle {
+  0% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.2) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  75% {
+    transform: scale(1.2) rotate(-5deg);
+  }
+  100% {
+    transform: scale(1.2) rotate(0deg);
+  }
+}
