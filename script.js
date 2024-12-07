@@ -3,6 +3,8 @@ let currentIndex = 0;
 let offset = 0;
 
 async function fetchItem(limit = 30) {
+  document.getElementById("loading-spinner").style.display = "block";
+
   if (offset >= 151) {
     console.log("Alle Pokemon geladen");
     return;
@@ -24,10 +26,13 @@ async function fetchItem(limit = 30) {
   }
 
   offset += limit;
+
+  document.getElementById("loading-spinner").style.display = "none";
+
   if (offset >= 151) {
     let loadButton = document.getElementById("load-more-btn");
-      loadButton.classList.add("display-none");
-      loadButton.classList.remove('load');
+    loadButton.classList.add("display-none");
+    loadButton.classList.remove("load");
   }
 }
 
@@ -47,9 +52,10 @@ function renderCharacter(pokemon, i) {
       typesHTML += ", ";
     }
   }
+  let mainTypeClass = pokemon.types[0].type.name;
 
   content.innerHTML += /*html*/ `
-    <div class="card card-hover" onclick="toggleOverlay(event,${i})">
+    <div class="card card-hover ${mainTypeClass}" onclick="toggleOverlay(event,${i})">
       <img class="card-img-top" id="main-page-img" src="${imageUrl}" alt="image-Pokémon">
       <div class="card-body">
         <h5 class="card-title avatar-name">${name}</h5>
@@ -126,8 +132,8 @@ function renderPokemoninOverlay(pokemon) {
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Stats</a>
-          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Moves</a>
+          <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Stats</a>
+          <a class="nav-item nav-link" id="nav-moves-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Moves</a>
         </div>
       </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -188,4 +194,5 @@ function changeDirection(direction) {
 
   renderPokemoninOverlay(pokemon);
 }
+
 console.log(pokemonArr);

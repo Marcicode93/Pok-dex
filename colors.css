@@ -1,34 +1,68 @@
-.grass{
-
- background-color: rgb(25, 186, 25);   
+.grass {
+    background: linear-gradient(135deg, rgba(25, 186, 25,0.2), rgba(15, 120, 15,0.7));
 }
 
 .fire {
-    background-color: rgb(250, 152, 59);
+    background: linear-gradient(135deg, rgba(250, 152, 59,0.2), rgba(255, 94, 0,0.7));
   }
   
   .water {
-    background-color: rgb(94, 150, 255);
+    background: linear-gradient(135deg, rgba(94, 150, 255,0.2), rgba(30, 90, 200,0.7));
   }
   
   .electric {
-    background-color: rgb(255, 204, 51);
+    background: linear-gradient(135deg, rgba(255, 204, 51,0.2), rgba(200, 150, 20, 0.7));
   }
-
-  .bug{
-    background-color: rgb(183, 94, 251);
+  
+  .bug {
+    background: linear-gradient(135deg, rgba(183, 94, 251,0.2), rgba(121, 45, 231, 0.7));
   }
-  .poison{
-    background-color: rgb(243, 35, 98);
+  
+  .poison {
+    background: linear-gradient(135deg, rgba(243, 35, 98,0.2), rgba(180, 15, 75, 0.7));
   }
-
-  .normal{
-    background-color: blanchedalmond;
+  
+  .normal {
+    background: linear-gradient(135deg, rgba(199, 176, 140,0.2), rgba(175, 150, 115, 0.7));
   }
-  .flying{
-    background-color: blanchedalmond;
+  
+  .flying {
+    background: linear-gradient(135deg, blanchedalmond, rgba(240, 220, 180, 0.7));
   }
-
-  .ground{
-    background-color: rgb(121, 72, 34);
+  
+  .ground {
+    background: linear-gradient(135deg, rgba(121, 72, 34,0.2), rgba(85, 50, 20, 0.7));
   }
+  
+  .fighting {
+    background: linear-gradient(135deg, rgba(221, 205, 185,0.2), rgba(180, 150, 120, 0.7));
+  }
+  
+  .psychic {
+    background: linear-gradient(135deg, rgba(184, 54, 145,0.2), rgba(140, 40, 120, 0.7));
+  }
+  
+  .rock {
+    background: linear-gradient(135deg, rgba(123, 39, 39,0.2), rgba(85, 20, 20, 0.7));
+  }
+  
+  .steel {
+    background: linear-gradient(135deg, rgba(93, 93, 93,0.2), rgba(60, 60, 60, 0.7));
+  }
+  
+  .ice {
+    background: linear-gradient(135deg, rgba(65, 190, 215,0.2), rgba(40, 130, 160, 0.7));
+  }
+  
+  .ghost {
+    background: linear-gradient(135deg, rgba(136, 92, 167,0.2), rgba(90, 60, 120, 0.7));
+  }
+  
+  .dragon {
+    background: linear-gradient(135deg, rgba(179, 41, 41,0.2), rgba(120, 20, 20, 0.7));
+  }
+  
+  .fairy {
+    background: linear-gradient(135deg, rgba(75, 207, 111,0.2), rgba(40, 160, 80, 0.7));
+  }
+  
