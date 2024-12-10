@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="colors.css" />
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./fonts/fonts.css" />
-    <link rel="shortcut icon" href="./img/pokeapi_50.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/pokeapi_50.png" type="image/x-icon" />
   </head>
   <body onload="fetchItem()">
     <header>
@@ -59,8 +59,8 @@
     <footer>
       <div class="links">
         <div class="links1">
-          <a href="#">Impressum</a>
-          <a href="#">Data Privacy</a>
+          <a href="./impressum.html">Impressum</a>
+          <a href="./datenschutz.html">Data Privacy</a>
         </div>
         <a href="https://pokeapi.co/" target="_blank">
           <img
@@ -83,7 +83,7 @@
     <div
       class="overlay-wrapper display-none"
       id="overlay-wrapper"
-      onclick="toggleOverlay(event)"
+      onclick="closeIfOutsideCard(event)"
     >
       <div class="overlay-content" id="overlay-content"></div>
     </div>

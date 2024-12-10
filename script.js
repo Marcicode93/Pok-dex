@@ -61,7 +61,7 @@ function renderCharacter(pokemon, i) {
   );
 }
 
-function renderPokemoninOverlay(pokemon) {
+function renderPokemoninOverlay(pokemon, event) {
   let overlayContent = document.getElementById("overlay-content");
   let name = capitalizeFirstLetter(pokemon.name);
   let height = pokemon.height * 10;
@@ -75,38 +75,9 @@ function renderPokemoninOverlay(pokemon) {
       ? (weight / 10).toString().replace(".", ",") + " kg"
       : weight + " g";
 
-  let abilitiesHTML = "";
-  pokemon.abilities.forEach((ability) => {
-    abilitiesHTML += `<li>${ability.ability.name}</li>`;
-  });
+  let abilitiesHTML = getAbilitiesHTML(pokemon);
 
-  let statsHTML = "";
-  for (let k = 0; k < pokemon.stats.length; k++) {
-    let statName = pokemon.stats[k].stat.name;
-    let baseStat = pokemon.stats[k].base_stat;
-
-    // Berechne den Fortschritt für die Progress-Bar (hier als Beispiel max. 200)
-    let progress = Math.min(baseStat, 200); // Maximalwert auf 200 begrenzen
-    let progressClass = "";
-
-    // Bestimme die Farbe der Progress-Bar je nach Wert
-    if (progress >= 100) {
-      progressClass = "bg-success"; // Gelb für mittlere Werte
-    } else if (progress >= 60) {
-      progressClass = "bg-warning"; // Gelb für mittlere Werte
-    } else {
-      progressClass = "bg-danger"; // Rot für niedrige Werte
-    }
-
-    statsHTML += /*html*/ `
-      <div class="mb-2">
-        <label class="stat-name">${statName}</label>
-        <div class="progress">
-          <div class="progress-bar ${progressClass}" role="progressbar" style="width: ${progress}%;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="200">${baseStat}</div>
-        </div>
-      </div>
-    `;
-  }
+  let statsHTML = getStatsHTML(pokemon);
 
   let typesHTML = getTypeIconsHTML(pokemon);
 
@@ -122,6 +93,10 @@ function renderPokemoninOverlay(pokemon) {
     abilitiesHTML,
     statsHTML
   );
+
+  if (event) {
+    event.stopPropagation();
+  }
 }
 
 function filterName() {
@@ -138,7 +113,7 @@ function filterName() {
   content.innerHTML = "";
   if (filteredPokemons.length === 0) {
     content.innerHTML = `<h1 class="no-pokemon">Kein Pokémon gefunden!</h1>`;
-}
+  }
 
   renderFilteredPokemons(filteredPokemons);
 }
@@ -152,31 +127,43 @@ function renderFilteredPokemons(filteredPokemons) {
     let typesHTML = getTypeIconsHTML(pokemon);
     let mainTypeClass = pokemon.types[0].type.name;
 
+    let indexInOriginalArray = pokemonArr.findIndex(
+      (p) => p.name === pokemon.name
+    );
+
     content.innerHTML += getMainTemplate(
       mainTypeClass,
       imageUrl,
       pokemon.name,
-      typesHTML
+      typesHTML,
+      indexInOriginalArray
     );
   });
 }
 
-function toggleOverlay(event, i) {
-  if (typeof i === "undefined" || !pokemonArr[i]) {
-    console.error("Invalid index passed to toggleOverlay:", i);
-    return;
-  }
+function toggleOverlay() {
   let overlay = document.getElementById("overlay-wrapper");
   overlay.classList.toggle("display-none");
-
-  currentIndex = i;
-
-  let pokemon = pokemonArr[currentIndex];
-  event.stopPropagation();
-  renderPokemoninOverlay(pokemon);
 }
 
-function changeDirection(direction) {
+function closeIfOutsideCard(event) {
+  let overlayCard =
+    document.getElementById("overlay-content").firstElementChild;
+  if (
+    event.target === document.getElementById("overlay-wrapper") ||
+    !overlayCard.contains(event.target)
+  ) {
+    toggleOverlay();
+  }
+}
+
+function showPokemon(event, currentIndexNew) {
+  currentIndex = currentIndexNew;
+  let pokemon = pokemonArr[currentIndexNew];
+  renderPokemoninOverlay(pokemon, event);
+}
+
+function changeDirection(direction, event) {
   currentIndex += direction;
 
   let pokemon = pokemonArr[currentIndex];
@@ -187,10 +174,5 @@ function changeDirection(direction) {
     currentIndex = 0;
   }
 
-  console.log("Updated currentIndex:", currentIndex);
-  console.log("Pokemon at currentIndex:", pokemonArr[currentIndex]);
-
-  renderPokemoninOverlay(pokemon);
+  renderPokemoninOverlay(pokemon, event);
 }
-
-console.log(pokemonArr);

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="colors.css" />
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./fonts/fonts.css" />
+    <link rel="shortcut icon" href="./img/pokeapi_50.png" type="image/x-icon" />
+  </head>
+  <body onload="fetchItem()">
+    <header>
+      <nav
+        class="navbar navbar-light bg-dark justify-content-between align-items-center"
+      >
+        <a href="./index.html" class="navbar-brand" id="reload-link">Pokédex</a>
+      </nav>
+    </header>
+
+    <main>
+      <div id="main-content">
+        <div class="impressum-content">
+          <h1>Impressum</h1>
+
+          <p>
+            Marcel Steffen<br />
+            Danziger Str. 12A<br />
+            78166 Donaueschingen
+          </p>
+
+          <h2>Kontakt</h2>
+          <p>
+            Telefon: +49 176 20240491<br />
+            E-Mail: marcel.steffen@hotmail.de
+          </p>
+
+          <p>Quelle: <a href="https://www.e-recht24.de">eRecht24</a></p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="links">
+        <div class="links1">
+          <a href="./impressum.html">Impressum</a>
+          <a href="./datenschutz.html">Data Privacy</a>
+        </div>
+        <a href="https://pokeapi.co/" target="_blank">
+          <img
+            src="./img/pokeapi_256.png"
+            alt="pokemon-logo"
+            class="pokemon-api"
+        /></a>
+
+        <div class="links3">
+          <a href="https://icons8.com" target="_blank">Icons by Icons8</a>
+          <a
+            href="https://tenor.com/de/view/fat-pokemon-ball-gif-16980448661176560739"
+            target="_blank"
+            >Loading Spinner GIF</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="template.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

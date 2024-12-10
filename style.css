@@ -31,7 +31,7 @@ body {
   padding-right: 60px;
 }
 
-.no-pokemon{
+.no-pokemon {
   color: black !important;
 }
 
@@ -133,7 +133,6 @@ main {
   cursor: pointer;
   z-index: 1;
   animation: wiggle 1.6s ease-in-out; /* Wackel-Animation */
-
 }
 
 ul.list-group {
@@ -243,11 +242,13 @@ ul.list-group {
 
 .tab-content {
   margin-top: 12px;
-  max-height: 150px;
+  height: 270px;
+  width: 250px;
 }
 
 #nav-home {
   width: 200px;
+  height: 220px;
 }
 
 .types {
@@ -372,5 +373,20 @@ footer a:hover {
   }
   100% {
     transform: scale(1.2) rotate(0deg);
+  }
+}
+
+@media (max-width: 650px) {
+  .links {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #search {
+    width: 180px;
+    height: 48px;
+    margin-left: 12px;
   }
 }
