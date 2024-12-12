@@ -1,67 +1,3 @@
-function getTypeIconsHTML(pokemon) {
-  let typesHTML = "";
-  let typeNames = [];
-
-  pokemon.types.forEach((typeObj) => {
-    let typeName = typeObj.type.name;
-    let iconUrl =
-      pokemon.sprites.versions["generation-vii"][typeName]?.front_default;
-
-    if (iconUrl) {
-      typesHTML += `<img class="type-icon" src="${iconUrl}" alt="${typeName} icon">`;
-    } else {
-      typeNames.push(typeName);
-    }
-  });
-
-  if (typeNames.length > 0) {
-    typesHTML += `<span>${typeNames.join(", ")}</span>`;
-  }
-
-  return typesHTML;
-}
-
-function getStatsHTML(pokemon) {
-  let statsHTML = "";
-  for (let k = 0; k < pokemon.stats.length; k++) {
-    let statName = pokemon.stats[k].stat.name;
-    let baseStat = pokemon.stats[k].base_stat;
-
-    let progress = Math.min(baseStat, 200);
-    let progressClass = "";
-
-    if (progress >= 100) {
-      progressClass = "bg-success";
-    } else if (progress >= 60) {
-      progressClass = "bg-warning";
-    } else {
-      progressClass = "bg-danger";
-    }
-
-    statsHTML += /*html*/ `
-      <div class="mb-2">
-        <label class="stat-name">${statName}</label>
-        <div class="progress">
-          <div class="progress-bar ${progressClass}" role="progressbar" style="width: ${progress}%;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="200">${baseStat}</div>
-        </div>
-      </div>
-    `;
-  }
-  return statsHTML;
-}
-
-function getAbilitiesHTML(pokemon) {
-  let abilitiesHTML = "";
-  pokemon.abilities.forEach((ability) => {
-    abilitiesHTML += `<li>${ability.ability.name}</li>`;
-  });
-  return abilitiesHTML;
-}
-
-function capitalizeFirstLetter(name) {
-  return name.charAt(0).toUpperCase() + name.slice(1);
-}
-
 function getMainTemplate(mainTypeClass, imageUrl, name, typesHTML, i) {
   return /*html*/ `
     <div class="card card-hover ${mainTypeClass}" onclick="toggleOverlay(), showPokemon(event,${i})">
@@ -76,16 +12,7 @@ function getMainTemplate(mainTypeClass, imageUrl, name, typesHTML, i) {
     `;
 }
 
-function getOverlayTemplate(
-  pokemon,
-  name,
-  heightDisplay,
-  weightDisplay,
-  mainTypeClass,
-  typesHTML,
-  abilitiesHTML,
-  statsHTML
-) {
+function getOverlayTemplate(pokemon,name,heightDisplay,weightDisplay,mainTypeClass,typesHTML,abilitiesHTML,statsHTML) {
   return /*html*/ `
 <div class="card overlay-card">
   <button id="close-btn" onclick="toggleOverlay()">X</button>

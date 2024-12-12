@@ -11,12 +11,15 @@ body {
   background-color: rgb(57, 167, 97);
   padding-bottom: 20px;
   padding-top: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
 }
 
 .navbar a {
   cursor: pointer;
   color: white;
   padding-left: 60px;
+  padding-right: 60px;
 }
 
 .navbar a:hover {
@@ -39,10 +42,15 @@ main {
   display: flex;
   flex: 1;
   flex-direction: column;
+  justify-content: center;
   height: 100vh;
   overflow: hidden;
   margin-top: 24px;
   margin-bottom: 24px;
+  max-width: 1920px;
+  width: 100%;  
+  margin-left: auto; 
+  margin-right: auto;  
 }
 
 .arrow-buttons {
@@ -132,13 +140,15 @@ main {
   transform: scale(1.05);
   cursor: pointer;
   z-index: 1;
-  animation: wiggle 1.6s ease-in-out; /* Wackel-Animation */
+  animation: wiggle 1.6s ease-in-out;
 }
 
 ul.list-group {
-  width: 60%; /* Make the stats fill the width of the card */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove margin */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
   list-style: none;
 }
 .display-none {
@@ -147,6 +157,19 @@ ul.list-group {
 
 .df {
   display: flex;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none; /* Standardmäßig ausgeblendet */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
 .overlay-wrapper {
@@ -170,6 +193,19 @@ ul.list-group {
   left: 0;
   right: 0;
   overflow: hidden;
+}
+
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; 
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
 }
 
 .upper-card {
@@ -213,8 +249,8 @@ ul.list-group {
 }
 
 .overlay-card img {
-  width: 150px; /* Bild passt sich der Breite der Karte an */
-  height: 150px; /* Verhindert, dass das Bild die Karte vertikal sprengt */
+  width: 150px;
+  height: 150px;
   object-fit: contain;
 }
 
@@ -222,7 +258,6 @@ ul.list-group {
   background-color: white;
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
   width: 300px;
   flex-shrink: 0;
@@ -241,13 +276,16 @@ ul.list-group {
 }
 
 .tab-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 12px;
   height: 270px;
   width: 250px;
 }
 
 #nav-home {
-  width: 200px;
+  width: 50%;
   height: 220px;
 }
 
@@ -377,6 +415,19 @@ footer a:hover {
 }
 
 @media (max-width: 650px) {
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(57, 167, 97);
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .links {
     display: flex;
     flex-direction: column !important;
@@ -384,9 +435,17 @@ footer a:hover {
     gap: 12px;
   }
 
+  .form-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 60px;
+    padding-left:  60px;
+  }
+
   #search {
     width: 180px;
-    height: 48px;
+    height: 36px;
     margin-left: 12px;
   }
 }

@@ -7,8 +7,8 @@ function reloadPage() {
 }
 
 async function fetchItem(limit = 30) {
-  let loadButton = document.getElementById("load-more-btn");
   document.getElementById("loading-spinner").style.display = "block";
+  showOverlay();
 
   let response = await fetch(
     `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
@@ -20,27 +20,46 @@ async function fetchItem(limit = 30) {
     let pokemonResponse = await fetch(results[i].url);
     let pokemonData = await pokemonResponse.json();
 
-    if (!pokemonArr.find((p) => p.name === pokemonData.name)) {
-      pokemonArr.push(pokemonData);
-      renderCharacter(pokemonData, pokemonArr.length - 1);
-    }
+    checkDuplicate(pokemonData);
   }
 
-  offset += limit;
-
+  handleOffsetAndButton(limit);
   document.getElementById("loading-spinner").style.display = "none";
+}
+
+function checkDuplicate(pokemonData) {
+  if (!pokemonArr.find((p) => p.name === pokemonData.name)) {
+    pokemonArr.push(pokemonData);
+    renderCharacter(pokemonData, pokemonArr.length - 1);
+  }
+}
+
+function handleOffsetAndButton(limit) {
+  let loadButton = document.getElementById("load-more-btn");
+  offset += limit;
   loadButton.disabled = false;
 
   if (offset >= 151) {
     loadButton.classList.add("display-none");
     loadButton.classList.remove("load");
   }
+  hideOverlay();
 }
 
 function fetchMorePokemon() {
   let loadButton = document.getElementById("load-more-btn");
   loadButton.disabled = true;
   fetchItem();
+}
+
+function showOverlay() {
+  const overlay = document.getElementById("loading-overlay");
+  overlay.style.display = "flex";
+}
+
+function hideOverlay() {
+  const overlay = document.getElementById("loading-overlay");
+  overlay.style.display = "none";
 }
 
 function renderCharacter(pokemon, i) {
@@ -52,47 +71,20 @@ function renderCharacter(pokemon, i) {
 
   let mainTypeClass = pokemon.types[0].type.name;
 
-  content.innerHTML += getMainTemplate(
-    mainTypeClass,
-    imageUrl,
-    name,
-    typesHTML,
-    i
-  );
+  content.innerHTML += getMainTemplate(mainTypeClass,imageUrl,name,typesHTML,i);
 }
 
 function renderPokemoninOverlay(pokemon, event) {
   let overlayContent = document.getElementById("overlay-content");
   let name = capitalizeFirstLetter(pokemon.name);
-  let height = pokemon.height * 10;
-  let heightDisplay =
-    height >= 100
-      ? (height / 100).toFixed(2).toString().replace(".", ",") + " m"
-      : height + " cm";
-  let weight = pokemon.weight;
-  let weightDisplay =
-    weight >= 100
-      ? (weight / 10).toString().replace(".", ",") + " kg"
-      : weight + " g";
-
+  let heightDisplay = getHeightInfo(pokemon);
+  let weightDisplay = getWeightInfo(pokemon);
   let abilitiesHTML = getAbilitiesHTML(pokemon);
-
   let statsHTML = getStatsHTML(pokemon);
-
   let typesHTML = getTypeIconsHTML(pokemon);
-
   let mainTypeClass = pokemon.types[0].type.name;
 
-  overlayContent.innerHTML = getOverlayTemplate(
-    pokemon,
-    name,
-    heightDisplay,
-    weightDisplay,
-    mainTypeClass,
-    typesHTML,
-    abilitiesHTML,
-    statsHTML
-  );
+  overlayContent.innerHTML = getOverlayTemplate(pokemon,name,heightDisplay,weightDisplay,mainTypeClass,typesHTML,abilitiesHTML,statsHTML);
 
   if (event) {
     event.stopPropagation();
@@ -101,44 +93,43 @@ function renderPokemoninOverlay(pokemon, event) {
 
 function filterName() {
   let search = document.getElementById("search").value.trim();
-  if (search.length < 3) {
-    alert("Bitte mindestens 3 Buchstaben eingeben!");
-    return;
-  }
+  let content = document.getElementById("main-content");
+  checkLength(search);
 
   let filteredPokemons = pokemonArr.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(search.toLowerCase())
   );
-  let content = document.getElementById("main-content");
+
   content.innerHTML = "";
+
   if (filteredPokemons.length === 0) {
     content.innerHTML = `<h1 class="no-pokemon">Kein Pokémon gefunden!</h1>`;
+    return;
   }
-
-  renderFilteredPokemons(filteredPokemons);
+  renderFilteredPokemons(filteredPokemons, content);
 }
 
-function renderFilteredPokemons(filteredPokemons) {
-  let content = document.getElementById("main-content");
-  content.innerHTML = "";
+function checkLength(search) {
+  if (search.length < 3) {
+    alert("Bitte mindestens 3 Buchstaben eingeben!");
+    return;
+  }
+}
+
+function renderFilteredPokemons(filteredPokemons, content) {
+  content.innerHTML= "";
 
   filteredPokemons.forEach((pokemon) => {
-    let imageUrl = pokemon.sprites.other["official-artwork"].front_default;
-    let typesHTML = getTypeIconsHTML(pokemon);
-    let mainTypeClass = pokemon.types[0].type.name;
+  let imageUrl = pokemon.sprites.other["official-artwork"].front_default;
+  let typesHTML = getTypeIconsHTML(pokemon);
+  let mainTypeClass = pokemon.types[0].type.name;
 
-    let indexInOriginalArray = pokemonArr.findIndex(
-      (p) => p.name === pokemon.name
+  let indexInOriginalArray = pokemonArr.findIndex(
+    (p) => p.name === pokemon.name
     );
 
-    content.innerHTML += getMainTemplate(
-      mainTypeClass,
-      imageUrl,
-      pokemon.name,
-      typesHTML,
-      indexInOriginalArray
-    );
-  });
+  content.innerHTML += getMainTemplate(mainTypeClass,imageUrl,capitalizeFirstLetter(pokemon.name),typesHTML,indexInOriginalArray);
+  return });
 }
 
 function toggleOverlay() {
@@ -166,13 +157,29 @@ function showPokemon(event, currentIndexNew) {
 function changeDirection(direction, event) {
   currentIndex += direction;
 
-  let pokemon = pokemonArr[currentIndex];
-
   if (currentIndex < 0) {
     currentIndex = pokemonArr.length - 1;
   } else if (currentIndex >= pokemonArr.length) {
     currentIndex = 0;
   }
 
+  let pokemon = pokemonArr[currentIndex];
+
   renderPokemoninOverlay(pokemon, event);
 }
+
+function determineProgressClass(progress) {
+  if (progress >= 70) {
+    return "bg-success";
+  } else if (progress >= 40) {
+    return "bg-warning";
+  } else {
+    return "bg-danger";
+  }
+}
+
+function capitalizeFirstLetter(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+console.log(pokemonArr);
