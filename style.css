@@ -11,8 +11,8 @@ body {
   background-color: rgb(57, 167, 97);
   padding-bottom: 20px;
   padding-top: 20px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 60px !important;
+  padding-right: 60px !important;
 }
 
 .navbar a {
@@ -36,6 +36,13 @@ body {
 
 .no-pokemon {
   color: black !important;
+}
+
+.nothing-found{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
@@ -166,7 +173,7 @@ ul.list-group {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  display: none; /* Standardmäßig ausgeblendet */
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 9999;
@@ -414,7 +421,7 @@ footer a:hover {
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 690px) {
 
   .navbar {
     display: flex;
@@ -424,8 +431,8 @@ footer a:hover {
     background-color: rgb(57, 167, 97);
     padding-bottom: 20px;
     padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 
   .links {
@@ -446,6 +453,41 @@ footer a:hover {
   #search {
     width: 180px;
     height: 36px;
-    margin-left: 12px;
+    margin-left: 0px;
+  }
+}
+@media (max-width: 450px) {
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(57, 167, 97);
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .form-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 20px !important;
+    padding-left:  20px !important;
+  }
+
+  #search {
+    width: 180px;
+    height: 36px;
+    margin-left: 0px;
   }
 }

@@ -94,6 +94,8 @@ function renderPokemoninOverlay(pokemon, event) {
 function filterName() {
   let search = document.getElementById("search").value.trim();
   let content = document.getElementById("main-content");
+  let loadButton = document.getElementById("load-more-btn");
+  
   checkLength(search);
 
   let filteredPokemons = pokemonArr.filter((pokemon) =>
@@ -103,7 +105,9 @@ function filterName() {
   content.innerHTML = "";
 
   if (filteredPokemons.length === 0) {
-    content.innerHTML = `<h1 class="no-pokemon">Kein Pokémon gefunden!</h1>`;
+    content.innerHTML = `       
+    <div class="nothing-found"><h1 class="no-pokemon">No Pokémon found!</h1><button class="load-more-btn btn btn-outline-success" onclick="reloadPage()">Reload Page</button></div>`;
+    loadButton.classList.add("display-none");
     return;
   }
   renderFilteredPokemons(filteredPokemons, content);
@@ -117,6 +121,8 @@ function checkLength(search) {
 }
 
 function renderFilteredPokemons(filteredPokemons, content) {
+  let loadButton = document.getElementById("load-more-btn");
+  loadButton.style.display = "none";
   content.innerHTML= "";
 
   filteredPokemons.forEach((pokemon) => {

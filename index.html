@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokédex</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css"/>
     <link
       rel="stylesheet"
-      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
-    />
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="colors.css" />
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./fonts/fonts.css" />
@@ -17,30 +16,25 @@
   <body onload="fetchItem()">
     <header>
       <nav
-        class="navbar navbar-light bg-dark justify-content-between align-items-center"
-      >
+        class="navbar navbar-light bg-dark justify-content-between align-items-center">
         <a class="navbar-brand" id="reload-link" onclick="reloadPage()"
-          >Pokédex</a
-        >
-        <form class="form-inline">
+          >Pokédex</a>
+        <div class="form-inline">
           <input
             class="form-control mr-sm-2"
             id="search"
             type="search"
             placeholder="Search for name..."
-            aria-label="Search"
-          />
+            aria-label="Search"/>
           <button
             class="btn btn-outline-success my-2 my-sm-0"
             type="submit"
-            onclick="filterName()"
-          >
+            onclick="filterName(); return false">
             Search
           </button>
-        </form>
+        </div>
       </nav>
     </header>
-
     <main>
       <div id="main-content">
         <div id="card-wrapper"></div>
@@ -49,8 +43,7 @@
         <button
           class="load-more-btn btn btn-outline-success"
           id="load-more-btn"
-          onclick="fetchMorePokemon()"
-        >
+          onclick="fetchMorePokemon()">
           Load More
         </button>
       </div>
@@ -74,8 +67,7 @@
           <a
             href="https://tenor.com/de/view/fat-pokemon-ball-gif-16980448661176560739"
             target="_blank"
-            >Loading Spinner GIF</a
-          >
+            >Loading Spinner GIF</a>
         </div>
       </div>
     </footer>
@@ -83,8 +75,7 @@
     <div
       class="overlay-wrapper display-none"
       id="overlay-wrapper"
-      onclick="closeIfOutsideCard(event)"
-    >
+      onclick="closeIfOutsideCard(event)">
       <div class="overlay-content" id="overlay-content"></div>
     </div>
 
@@ -95,16 +86,13 @@
           data-postid="16980448661176560739"
           data-share-method="host"
           data-aspect-ratio="1.49102"
-          data-width="100%"
-        >
+          data-width="100%">
           <a
             href="https://tenor.com/view/fat-pokemon-ball-gif-16980448661176560739"
-            >Fat Pokemon Ball Sticker</a
-          >
+            >Fat Pokemon Ball Sticker</a>
           from
           <a href="https://tenor.com/search/fat+pokemon+ball-stickers"
-            >Fat Pokemon Ball Stickers</a
-          >
+            >Fat Pokemon Ball Stickers</a>
         </div>
         <script
           type="text/javascript"
